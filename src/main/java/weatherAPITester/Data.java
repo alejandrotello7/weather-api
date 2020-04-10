@@ -6,9 +6,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import beans.City;
+import beans.Clouds;
 import beans.Coord;
+import beans.Main;
 import beans.Sys;
+import beans.Visibility;
 import beans.Weather;
+import beans.Wind;
 
 public class Data {
 
@@ -69,6 +74,41 @@ public class Data {
 		Weather.setDescription(propertyHashMap.get("description"));
 		Weather.setIcon(propertyHashMap.get("icon"));
 		
+		//main
+		String main = (String) dataObject.get("main").toString();
+		String[] mainArray = removeBrackets(main);
+		propertyHashMap = getHashMap(mainArray);
+		Main.setTemp(propertyHashMap.get("temp"));
+		Main.setFeelsLike(propertyHashMap.get("feels_like"));
+		Main.setTempMin(propertyHashMap.get("temp_min"));
+		Main.setTempMax(propertyHashMap.get("temp_max"));
+		Main.setPressure(propertyHashMap.get("pressure"));
+		Main.setHumidity(propertyHashMap.get("humidity"));
+		
+		//visibility
+		String visibility = (String) dataObject.get("visibility").toString();
+		Visibility.setVisibility(visibility);
+		
+		//wind
+		String wind = (String) dataObject.get("wind").toString();
+		String[] windArray = removeBrackets(wind);
+		propertyHashMap = getHashMap(windArray);
+		Wind.setSpeed(propertyHashMap.get("speed"));
+		Wind.setDeg(propertyHashMap.get("deg"));
+		
+		//clouds
+		String clouds = (String) dataObject.get("clouds").toString();
+		String[] cloudsArray = removeBrackets(clouds);
+		propertyHashMap = getHashMap(cloudsArray);
+		Clouds.setAll(propertyHashMap.get("all"));
+		
+		//city name and id
+		String city = (String) dataObject.get("name").toString();
+		City.setName(city);
+		String id = (String) dataObject.get("id").toString();
+		City.setId(id);
+		
+	
 	
 		
 	}
