@@ -4,6 +4,7 @@ import org.json.simple.parser.ParseException;
 
 import beans.Coord;
 import beans.Sys;
+import beans.Weather;
 
 public class Tester {
 
@@ -28,6 +29,7 @@ public class Tester {
 		System.out.println(Sys.getCountry());
 		System.out.println(Coord.getLatitude());
 		System.out.println(Coord.getLongitude());
+		System.out.println(Weather.getMain());
 		
 	
 

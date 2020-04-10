@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 
 import beans.Coord;
 import beans.Sys;
+import beans.Weather;
 
 public class Data {
 
@@ -33,10 +34,8 @@ public class Data {
 
 	private static void setBeans() {
 		
-		String sys = (String) dataObject.get("sys").toString();
-		String coord = (String) dataObject.get("coord").toString();
-		
 		//sys
+		String sys = (String) dataObject.get("sys").toString();
 		String[] sysArray = removeBrackets(sys);
 		HashMap<String, String >propertyHashMap = getHashMap(sysArray);
 		Sys.setCountry(propertyHashMap.get("country"));
@@ -46,10 +45,30 @@ public class Data {
 		Sys.setType(propertyHashMap.get("type"));
 		
 		//coord
+		String coord = (String) dataObject.get("coord").toString();
 		String[] coordArray = removeBrackets(coord);
 		propertyHashMap = getHashMap(coordArray);
 		Coord.setLongitude(propertyHashMap.get("lon"));
 		Coord.setLatitude(propertyHashMap.get("lat"));
+		
+		//weather
+		String weather = (String) dataObject.get("weather").toString();
+		String[] weatherArray = weather.split(",", -2);
+		String temp = weatherArray[0].replace("[","");
+		weatherArray[0] = temp;
+		temp = weatherArray[weatherArray.length-1].replace("]","");
+		weatherArray[weatherArray.length-1] = temp;
+		
+		for(int i=0; i<weatherArray.length; i++ ) {
+			temp = weatherArray[i].replace("\"","");
+			weatherArray[i]=temp;
+		}
+		propertyHashMap = getHashMap(weatherArray);
+		Weather.setId(propertyHashMap.get("id"));
+		Weather.setMain(propertyHashMap.get("main"));
+		Weather.setDescription(propertyHashMap.get("description"));
+		Weather.setIcon(propertyHashMap.get("icon"));
+		
 	
 		
 	}

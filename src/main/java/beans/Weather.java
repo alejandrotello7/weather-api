@@ -2,15 +2,15 @@ package beans;
 
 public class Weather {
 	
-	private static long id;
+	private static String id;
 	private static String main;
 	private static String description;
 	private static String icon;
 	
-	public static long getId() {
+	public static String getId() {
 		return id;
 	}
-	public static void setId(long id) {
+	public static void setId(String id) {
 		Weather.id = id;
 	}
 	public static String getMain() {
