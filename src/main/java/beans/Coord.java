@@ -1,19 +1,20 @@
 package beans;
 
 public class Coord {
-	private static long longitude;
-	private static long latitude;
-	public static long getLongitude() {
+	private static String longitude;
+	private static String latitude;
+	public static String getLongitude() {
 		return longitude;
 	}
-	public static void setLongitude(long longitude) {
+	public static void setLongitude(String longitude) {
 		Coord.longitude = longitude;
 	}
-	public static long getLatitude() {
+	public static String getLatitude() {
 		return latitude;
 	}
-	public static void setLatitude(long latitude) {
+	public static void setLatitude(String latitude) {
 		Coord.latitude = latitude;
 	}
+
 	
 }
