@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import beans.City;
+import beans.CityId;
 import beans.Clouds;
 import beans.Coord;
 import beans.Main;
@@ -18,6 +19,7 @@ import beans.Sys;
 import beans.Visibility;
 import beans.Weather;
 import beans.Wind;
+import utils.CityListDb;
 
 public class Tester {
 
@@ -59,21 +61,8 @@ public class Tester {
 		HashMap<String, ArrayList<String>> hashTester = new HashMap<String, ArrayList<String>>();
 	
 		JSONObject dataObject;
-		System.out.println(cityList.get(200));
 		
-		@SuppressWarnings("unchecked")
-		Iterator<JSONArray> iterator = cityList.iterator();
-		int i=1;
-		/*while(iterator.hasNext()) {
-			dataObject = (JSONObject)parser.parse(cityList.get(i-1).toString());
-			ArrayList<String> temp = new ArrayList<String>();
-			temp.add(dataObject.get("name").toString());
-			temp.add(dataObject.get("country").toString());
-			ID.put(temp,dataObject.get("id").toString());
-			i++;
-		}*/
-		
-		for(i=0; i<cityList.size(); i++) {
+		for(int i=0; i<cityList.size(); i++) {
 			dataObject = (JSONObject)parser.parse(cityList.get(i).toString());
 			ArrayList<String> temp = new ArrayList<String>();
 			temp.add(dataObject.get("name").toString());
@@ -83,12 +72,30 @@ public class Tester {
 			i++;
 		}
 		
-		ArrayList<String> temp = new ArrayList<String>();
-		temp.add("Mexicali");
-		temp.add("MX");
-		System.out.println(ID.get(temp));
-		System.out.println(hashTester.get("3981609"));
+		for(int i=0; i<cityList.size(); i++) {
+			dataObject = (JSONObject)parser.parse(cityList.get(i).toString());
+			CityId bean = new CityId();
+			bean.setCityName(dataObject.get("name").toString());
+			bean.setCountryName(dataObject.get("country").toString());
+			bean.setId(dataObject.get("id").toString());
+			CityListDb.addCity(bean);
+			i++;
+		}
+
 		
+		ArrayList<String> temp = new ArrayList<String>();
+		temp.add("Tepechitlán");
+		temp.add("MX");
+		
+		System.out.println("-----------------------------");
+		System.out.println("Testing Zone: ");
+		System.out.println("-----------------------------");
+		System.out.println(ID.get(temp));
+		System.out.println("Tamano de JSON: "+cityList.size());
+		System.out.println("Tamano de HashMap: "+ID.size());
+		System.out.println("Tamano bean"+CityListDb.getSize());
+
+
 
 		
 
